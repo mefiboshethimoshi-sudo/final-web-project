@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahari ya Mrembo</title>
+  <link rel="stylesheet" href="quest7-navigation.css">
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <h1 class="logo">Fahari ya Mrembo 👜</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#cart">Cart</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="quest7-navigation-about.html">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <h2>Welcome to Fahari ya Mrembo</h2>
+    <p>Elegant bags & pochi for modern women</p>
+    <input type="text" id="search" placeholder="Search products...">
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <h2>Our Products</h2>
+    <button id="reset-products" class="reset-btn">Reset Products</button>
+    <div class="product-container" id="product-container">
+      <!-- Products will be populated dynamically from script.js for persistence -->
+    </div>
+  </section>
+
+  <!-- CART -->
+  <section id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items">
+      <li>No items yet</li>
+    </ul>
+    <h3 id="total">Total: 0 TZS</h3>
+    <button id="order-btn" class="order-btn">Order via WhatsApp</button>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-container">
+      <form id="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <div class="contact-info">
+        <p>📞 WhatsApp: +255699059787</p>
+        <p>✉ Email: myshop@gmail.com</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Fahari ya Mrembo</p>
+</footer>
+
+<script src="quest7-navigation.js"></script>
+</body>
+</html>

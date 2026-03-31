@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Planning - Fahari ya Mrembo</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .box {
+            border: 2px dashed black;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .products {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product {
+            flex: 1;
+            border: 2px dashed black;
+            padding: 20px;
+        }
+
+        .cart {
+            border: 2px dashed black;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        pre {
+            text-align: left;
+            background: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📝 Project Planning - Fahari ya Mrembo 👜</h1>
+
+    <!-- ================= STEP 1 ================= -->
+    <h2>📌 Step 1: Define Features</h2>
+    <p>List every feature your app needs.</p>
+
+    <h3>Features:</h3>
+    <ul>
+        <li>Display products (bags & pochi)</li>
+        <li>Show product name and price</li>
+        <li>Add product to cart</li>
+        <li>Display items in cart</li>
+        <li>Calculate total price</li>
+        <li>Remove item from cart</li>
+        <li>Order via WhatsApp</li>
+        <li>Generate automatic order message</li>
+    </ul>
+
+    <!-- ================= STEP 2 ================= -->
+    <h2>📌 Step 2: Wireframe Sketch</h2>
+
+    <div class="box">
+        <h2>👜 Fahari ya Mrembo</h2>
+    </div>
+
+    <div class="box">
+        <h3>Products Section</h3>
+
+        <div class="products">
+            <div class="product">
+                <p>Image</p>
+                <p>Product Name</p>
+                <p>Price</p>
+                <button>Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <p>Image</p>
+                <p>Product Name</p>
+                <p>Price</p>
+                <button>Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <p>Image</p>
+                <p>Product Name</p>
+                <p>Price</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h3>🛒 Cart</h3>
+        <p>List of items</p>
+        <p>Total Price</p>
+    </div>
+
+    <div class="box">
+        <button>Order via WhatsApp</button>
+    </div>
+
+    <!-- ================= STEP 3 ================= -->
+    <h2>📌 Step 3: List Pages / Sections</h2>
+
+    <h3>Pages:</h3>
+    <ul>
+        <li>index.html (Main Shop Page)</li>
+    </ul>
+
+    <h3>Sections in index.html:</h3>
+    <ul>
+        <li>Header (Fahari ya Mrembo Title)</li>
+        <li>Products Section (Display all bags & pochi)</li>
+        <li>Cart Section (Selected items)</li>
+        <li>Total Price Display</li>
+        <li>WhatsApp Order Button</li>
+    </ul>
+
+    <!-- ================= STEP 4 ================= -->
+    <h2>📌 Step 4: Plan Data Structure</h2>
+
+    <p>Define what data your app will store.</p>
+
+    <h3>Products Data:</h3>
+    <pre>
+const products = [
+    { name: "Black Bag", price: 25000 },
+    { name: "Red Pochi", price: 10000 },
+    { name: "Luxury Handbag", price: 40000 }
+];
+    </pre>
+
+    <h3>Cart Data:</h3>
+    <pre>
+let cart = [];
+    </pre>
+
+    <h3>Structure Explanation:</h3>
+    <ul>
+        <li><b>products</b> → stores all available items</li>
+        <li><b>cart</b> → stores items added by the user</li>
+        <li>Each product has:</li>
+        <ul>
+            <li>name</li>
+            <li>price</li>
+        </ul>
+    </ul>
+
+    <!-- ================= STEP 5 ================= -->
+    <h2>📌 Step 5: Choose Color Palette & Fonts</h2>
+
+    <p>Select colors and fonts for your project to maintain a consistent design.</p>
+
+    <h3>🎨 Color Palette</h3>
+    <ul>
+        <li>Primary Color: #FF69B4 (Pink)</li>
+        <li>Secondary Color: #000000 (Black)</li>
+        <li>Background Color: #FFFFFF (White)</li>
+        <li>Accent Color: #FFD700 (Gold)</li>
+    </ul>
+
+    <p>Color tool:</p>
+    <p>👉 https://coolors.co</p>
+
+    <h3>🔤 Fonts</h3>
+    <ul>
+        <li>Heading Font: Poppins</li>
+        <li>Body Font: Arial / Roboto</li>
+    </ul>
+
+    <p>Font tool:</p>
+    <p>👉 https://fonts.google.com</p>
+
+</body>
+</html>

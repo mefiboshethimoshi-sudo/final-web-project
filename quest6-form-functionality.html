@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahari ya Mrembo - Interactive</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root { --primary:#8b5cf6; --secondary:#00d4ff; --bg:#f5f5f5; --text:#333; }
+    body { font-family: Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header { background: var(--primary); color:white; padding:15px; }
+    .navbar { display:flex; justify-content:space-between; align-items:center; }
+    .nav-links { display:flex; gap:20px; list-style:none; }
+    .nav-links a { color:white; text-decoration:none; }
+    section { padding: 30px; text-align:center; background:white; margin-bottom:10px; border-radius:10px; }
+    input, textarea, button { padding:10px; border-radius:5px; }
+    input, textarea { border:1px solid #ccc; width:90%; margin:5px 0; }
+    button { border:none; cursor:pointer; background: var(--secondary); color:white; margin:5px 2px; }
+    button:hover { background: var(--primary); transition:0.3s; }
+    .product-container { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+    .product { width:220px; background:white; padding:10px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+    .product img { width:100%; height:180px; object-fit:cover; border-radius:10px; }
+    #cart-items li { list-style:none; margin:5px 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <h1>Fahari ya Mrembo 👜</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#cart">Cart</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="products">
+  <h2>Products</h2>
+  <input type="text" id="search" placeholder="Search products...">
+  <div class="product-container">
+    <div class="product">
+      <img src="images/bag1.jpg" alt="Elegant Handbag">
+      <h3>Elegant Handbag</h3>
+      <p class="price" data-price="50000">TZS 50,000</p>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="edit-btn">Edit</button>
+    </div>
+    <div class="product">
+      <img src="images/bag2.jpg" alt="Luxury Purse">
+      <h3>Luxury Purse</h3>
+      <p class="price" data-price="30000">TZS 30,000</p>
+      <button class="add-to-cart">Add to Cart</button>
+      <button class="edit-btn">Edit</button>
+    </div>
+    <!-- Add more products as needed -->
+  </div>
+  <p id="no-results" style="display:none;">No products found</p>
+</section>
+
+<section id="cart">
+  <h2>Your Cart</h2>
+  <ul id="cart-items"><li>No items yet</li></ul>
+  <h3 id="total">Total: 0 TZS</h3>
+  <button id="order-btn">Order via WhatsApp</button>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <form id="contact-form">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<script>
+/* ====== DATA ====== */
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* ====== UTILITY FUNCTIONS ====== */
+function saveCart() { localStorage.setItem("cart", JSON.stringify(cart)); }
+function updateCart() {
+  const cartList = document.getElementById("cart-items");
+  const totalText = document.getElementById("total");
+  cartList.innerHTML = "";
+  let total = 0;
+  if(cart.length === 0) { cartList.innerHTML = "<li>No items yet</li>"; totalText.innerText = "Total: 0 TZS"; return; }
+  cart.forEach((item, index) => {
+    total += item.price * item.quantity;
+    const li = document.createElement("li");
+    li.innerHTML = `${item.name} (x${item.quantity}) - ${item.price*item.quantity} TZS
+      <button onclick="changeQuantity(${index},1)">+</button>
+      <button onclick="changeQuantity(${index},-1)">-</button>
+      <button onclick="removeItem(${index})">Remove</button>`;
+    cartList.appendChild(li);
+  });
+  totalText.innerText = `Total: ${total} TZS`;
+}
+
+function addToCart(name, price) {
+  const existing = cart.find(i => i.name === name);
+  if(existing) existing.quantity++; else cart.push({id:Date.now(), name, price, quantity:1});
+  saveCart(); updateCart();
+}
+
+function removeItem(index){ cart.splice(index,1); saveCart(); updateCart(); }
+function changeQuantity(index, delta){ cart[index].quantity += delta; if(cart[index].quantity<=0) removeItem(index); else { saveCart(); updateCart(); } }
+
+function editProduct(product){
+  const nameEl = product.querySelector("h3");
+  const priceEl = product.querySelector(".price");
+  const newName = prompt("New name:", nameEl.innerText);
+  const newPrice = prompt("New price:", priceEl.dataset.price);
+  if(newName && newPrice){ nameEl.innerText = newName; priceEl.dataset.price=newPrice; priceEl.innerText=`TZS ${parseInt(newPrice).toLocaleString()}`; }
+}
+
+function searchProducts(value){
+  let found = false;
+  document.querySelectorAll(".product").forEach(product=>{
+    const name = product.querySelector("h3").innerText.toLowerCase();
+    if(name.includes(value.toLowerCase())){ product.style.display="block"; found=true; } else product.style.display="none";
+  });
+  document.getElementById("no-results").style.display = found ? "none" : "block";
+}
+
+/* ====== EVENTS ====== */
+document.querySelectorAll(".add-to-cart").forEach(btn=>btn.addEventListener("click",()=>{
+  const product = btn.closest(".product");
+  const name = product.querySelector("h3").innerText;
+  const price = parseInt(product.querySelector(".price").dataset.price);
+  addToCart(name, price);
+}));
+
+document.querySelectorAll(".edit-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  const product = btn.closest(".product");
+  editProduct(product);
+}));
+
+document.getElementById("search").addEventListener("keyup", e=>searchProducts(e.target.value));
+
+document.getElementById("order-btn").addEventListener("click", ()=>{
+  if(cart.length===0){ alert("Your cart is empty!"); return; }
+  let message="Hello, I want to order:\n";
+  cart.forEach(item=>message+=`${item.name} x${item.quantity} = TZS ${item.price*item.quantity}\n`);
+  const total = cart.reduce((sum,i)=>sum+i.price*i.quantity,0);
+  message+=`Total: TZS ${total}`;
+  window.open(`https://wa.me/255699059787?text=${encodeURIComponent(message)}`,"_blank");
+  cart=[]; saveCart(); updateCart();
+});
+
+document.getElementById("contact-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name=this.querySelector('input[type="text"]').value.trim();
+  const email=this.querySelector('input[type="email"]').value.trim();
+  const message=this.querySelector('textarea').value.trim();
+  if(!name||!email||!message){ alert("Please fill in all fields!"); return; }
+  alert("Thank you! Your message has been sent."); this.reset();
+});
+
+/* ====== INIT ====== */
+updateCart();
+</script>
+
+</body>
+</html>

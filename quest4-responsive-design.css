@@ -1,0 +1,65 @@
+/* quest4-responsive-design.css */
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Navigation */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+/* Products layout */
+#products {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+article {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 250px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+  }
+
+  #products {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  article {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
